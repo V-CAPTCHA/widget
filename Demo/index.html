@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Demo Widget Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form action="">
+
+        <h1>เข้าสู่ระบบ</h1>
+        <h4><u>Demo Page for Widget</u></h4>
+        <div class="formcontainer">
+        <hr/>
+        <div class="container">
+          <label for="uname"><strong>ชื่อผู้ใช้</strong></label>
+          <input type="text" placeholder="โปรดกรอก ชื่อผู้ใช้งาน" name="uname" required>
+          <label for="psw"><strong>รหัสผ่าน</strong></label>
+          <input type="password" placeholder="โปรดกรอก รหัสผ่าน" name="psw" required>
+        </div>
+        <vcaptcha></vcaptcha>
+        <button type="submit">เข้าสู่ระบบ</button>
+        
+        <div class="container" style="background-color: #eee">
+          <label style="padding-left: 15px">
+          <input type="checkbox"  checked="checked" name="remember"> จดจำฉัน
+          </label>
+          <span class="psw"><a href="#"> ลืมรหัสผ่าน?</a></span>
+        </div>
+
+    </form>
+    <script src="../vcaptchaWidget.js"></script>
+  </body>
+</html>
