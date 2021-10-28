@@ -17,7 +17,7 @@ html, body {
     border: 1px solid #ccc;
     box-sizing: border-box;
     }
-    button {
+    #buttond {
     background-color: #8ebf42;
     color: white;
     padding: 14px 0;
@@ -35,7 +35,7 @@ html, body {
         fone-size:18;
         color: red;
         }
-    button:hover {
+    #buttond:hover {
     opacity: 0.8;
     }
     .formcontainer {

@@ -4,19 +4,59 @@ var recognition = new SpeechRecognition();
 recognition.lang = 'th-TH';
 var transcript;
 
+var vcaptcha;
 function init() {
 
 
 
-  let vcaptcha = document.getElementsByTagName('vcaptcha')[0];
-  vcaptcha.appendChild(createForms(vcaptcha));
+  vcaptcha = document.getElementsByTagName('vcaptcha')[0];
+  //vcaptcha.appendChild(createForms(vcaptcha));
+  vcaptcha.appendChild(createDialog(vcaptcha));
   
 }
+
+
+
+function createDialog() {
+  let parent = document.createElement('div'); //create parent div for content
+
+  // !!!Setup Div Dialog!!!
+  parent.id='dialogActionVcaptcha';
+  parent.style.display = 'block';
+  parent.style.width = '200px';
+  parent.style.font = '12px Helvetica';
+  parent.style.border = '2px solid #d3d3d3';
+  parent.style.borderRadius = '3px';
+  parent.style.padding = '10px';
+  parent.style.margin = 'auto';
+  parent.style.marginBottom="20px";
+  
+
+  //Dialog Button
+  let DialogButton = document.createElement('button');
+  DialogButton.innerHTML = 'คลิกเพื่อเริ่มยืนยันตัวตน';
+  DialogButton.id = 'buttonActionVcaptcha';
+  DialogButton.style.textAlign = 'center';
+  DialogButton.style.backgroundColor = '#8ebf42';
+  DialogButton.style.color = 'white';
+  DialogButton.style.border = 'None';
+  DialogButton.style.width = '100%';
+  DialogButton.style.height = '35px';
+  parent.appendChild(DialogButton);
+  return parent;
+}
+
+buttonActionVcaptcha.addEventListener('click', function(event) {
+  vcaptcha.appendChild(createForms(vcaptcha));
+  const div = document.getElementById("dialogActionVcaptcha");
+div.remove();
+});
 
 function createForms() {
   let parent = document.createElement('div'); //create parent div for content
 
   // !!!Setup Div Prop!!!
+  parent.id='formVcaptcha';
   parent.style.display = 'block';
   parent.style.width = '200px';
   parent.style.font = '12px Helvetica';
@@ -55,7 +95,7 @@ function createForms() {
   parent.appendChild(img);
   parent.appendChild(responeUser);
   parent.appendChild(textGuide);
-
+  recognition.start();
   return parent;
 }
 
@@ -66,11 +106,30 @@ recognition.onresult = function(event) {
     document.getElementById("txtRespone").innerHTML=transcript;
 };
 recognition.onstart = function() {
-    console.log("We are listening. Try speaking into the microphone.");
+    console.log("SpeechRecognition is Starting..");
 };
 
 recognition.onspeechend = function() {
     // when user is done speaking
     recognition.stop();
 }
-recognition.start();
+
+//debug_api()
+
+function debug_api(){
+  fetch('http://widgetapi.vcaptcha.work/').then(function (response) {
+	// The API call was successful!
+	if (response.ok) {
+		return response.json();
+	} else {
+		return Promise.reject(response);
+	}
+}).then(function (data) {
+	// This is the JSON from our response
+  alert(data);
+	console.log(data);
+}).catch(function (err) {
+	// There was an error
+	console.warn('Something went wrong.', err);
+});
+}

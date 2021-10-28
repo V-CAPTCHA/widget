@@ -1,0 +1,11 @@
+#fromVcaptcha{
+
+    display :block;
+    width :'200px';
+    border :'2px solid #d3d3d3';
+    border-radius:  '3px';
+    padding : '10px';
+    margin :'auto';
+    margin-bottom :"20px";
+
+}
