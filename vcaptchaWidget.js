@@ -3,8 +3,11 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition; //init voi
 var recognition = new SpeechRecognition();
 recognition.lang = 'th-TH';
 var transcript;
-
 var vcaptcha;
+
+
+
+
 function init() {
 
 
@@ -12,8 +15,14 @@ function init() {
   vcaptcha = document.getElementsByTagName('vcaptcha')[0];
   //vcaptcha.appendChild(createForms(vcaptcha));
   vcaptcha.appendChild(createDialog(vcaptcha));
+
+  
+ 
   
 }
+
+
+
 
 
 
@@ -32,25 +41,23 @@ function createDialog() {
   parent.style.marginBottom="20px";
   
 
+  
+  
+
   //Dialog Button
   let DialogButton = document.createElement('button');
   DialogButton.innerHTML = 'คลิกเพื่อเริ่มยืนยันตัวตน';
   DialogButton.id = 'buttonActionVcaptcha';
   DialogButton.style.textAlign = 'center';
-  DialogButton.style.backgroundColor = '#8ebf42';
+  DialogButton.style.backgroundColor = '#1a73e8';
   DialogButton.style.color = 'white';
   DialogButton.style.border = 'None';
   DialogButton.style.width = '100%';
   DialogButton.style.height = '35px';
+ 
   parent.appendChild(DialogButton);
   return parent;
 }
-
-buttonActionVcaptcha.addEventListener('click', function(event) {
-  vcaptcha.appendChild(createForms(vcaptcha));
-  const div = document.getElementById("dialogActionVcaptcha");
-div.remove();
-});
 
 function createForms() {
   let parent = document.createElement('div'); //create parent div for content
@@ -95,7 +102,9 @@ function createForms() {
   parent.appendChild(img);
   parent.appendChild(responeUser);
   parent.appendChild(textGuide);
+  //authen Core Function
   recognition.start();
+  //debug_api()
   return parent;
 }
 
@@ -114,10 +123,12 @@ recognition.onspeechend = function() {
     recognition.stop();
 }
 
-//debug_api()
+
 
 function debug_api(){
-  fetch('http://widgetapi.vcaptcha.work/').then(function (response) {
+  valueDomain ='clienttest.com';
+  valueKey = '1150123vcaptcha';
+  fetch('http://widgetapi.vcaptcha.work/GetCaptcha?domain='+ valueDomain +'&key='+valueKey).then(function (response) {
 	// The API call was successful!
 	if (response.ok) {
 		return response.json();
@@ -133,3 +144,18 @@ function debug_api(){
 	console.warn('Something went wrong.', err);
 });
 }
+
+//Addonn Function
+
+document.getElementById("buttonActionVcaptcha").addEventListener("mouseover", function() {
+  this.style.backgroundColor = 'rgb(41 105 190)';
+});
+document.getElementById("buttonActionVcaptcha").addEventListener("mouseout", function() {
+  this.style.backgroundColor = '#1a73e8';
+});
+
+buttonActionVcaptcha.addEventListener('click', function(event) {
+  vcaptcha.appendChild(createForms(vcaptcha));
+  const div = document.getElementById("dialogActionVcaptcha");
+div.remove();
+});
