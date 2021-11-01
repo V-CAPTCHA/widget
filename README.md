@@ -47,6 +47,13 @@ and put use this tag script for begin a service
 <vcaptcha></vcaptcha>
 ```
 
+```
+function vcaptcha_actionResult(vcaptcha_action)
+  {
+      //put your business logic here !
+  }
+```
+
 ## ✍️ Authors <a name = "authors"></a>
 
 - [@thanatath](https://github.com/thanatath) 
