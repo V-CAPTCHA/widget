@@ -9,6 +9,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    
+    
   </head>
   <body>
     <form action="">
@@ -24,8 +26,13 @@
           <input type="password" placeholder="โปรดกรอก รหัสผ่าน" name="psw" required>
         </div>
         <vcaptcha></vcaptcha>
-        <button id="buttond" type="submit">เข้าสู่ระบบ</button>
+
         
+
+        <button id="buttond" disabled type="submit">เข้าสู่ระบบ</button>
+        
+        
+
         <div class="container" style="background-color: #eee">
           <label style="padding-left: 15px">
           <input type="checkbox"  checked="checked" name="remember"> จดจำฉัน
@@ -35,5 +42,14 @@
 
     </form>
     <script src="../vcaptchaWidget.js"></script> 
+    <script>
+    
+    function vcaptcha_actionResult(vcaptcha_action){
+      if(vcaptcha_action =="Valid"){document.getElementById("buttond").disabled = false;}
+      
+    }
+    
+    </script> 
+   
   </body>
 </html>

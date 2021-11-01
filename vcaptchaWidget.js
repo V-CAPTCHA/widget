@@ -4,13 +4,13 @@ var recognition = new SpeechRecognition();
 recognition.lang = 'th-TH';
 var transcript;
 var vcaptcha;
+var vcaptcha_status;
 var c_Id;
 var c_Dataset;
 var c_DatasetQuestion;
 
 function init() {
   vcaptcha = document.getElementsByTagName('vcaptcha')[0];
-  //vcaptcha.appendChild(createForms(vcaptcha));
   vcaptcha.appendChild(createDialog(vcaptcha));
 }
 
@@ -77,8 +77,9 @@ function createForms() {
 
   //text guide name
   let textGuide = document.createElement('p');
-  textGuide.innerHTML = 'เรากำลังฟังคุณอยู่...';
+  textGuide.innerHTML = "เรากำลังฟังคุณอยู่...";
   textGuide.style.textAlign = 'center';
+  textGuide.id = "textGuide"
 
   // !!!Setup Div Prop!!!
   parent.appendChild(question);
@@ -96,9 +97,13 @@ function createForms() {
 recognition.onresult = function (event) {
   transcript = event.results[0][0].transcript;
   document.getElementById('txtRespone').innerHTML = transcript;
+  document.getElementById("textGuide").innerHTML = "เราได้ยินคุณแล้ว"
+  checkCaptcha_api()
+  //vcaptcha_actionResult("Success");
 };
 recognition.onstart = function () {
   console.log('SpeechRecognition is Starting..');
+  document.getElementById("textGuide").innerHTML = "เรากำลังฟังคุณอยู่..."
 };
 
 recognition.onspeechend = function () {
@@ -131,6 +136,46 @@ function getCaptcha_api() {
       c_Dataset = data.dataset_img;
       c_DatasetQuestion = data.dataset_question;
       vcaptcha.appendChild(createForms(vcaptcha)) //call captcha dialog
+    })
+    .catch(function (err) {
+      // There was an error
+      console.warn('Something went wrong.', err);
+    });
+}
+
+function checkCaptcha_api() {
+  valueDomain = 'clienttest.com';
+  valueKey = '1150123vcaptcha';
+  valueActionID = c_Id;
+  valueActionReply = transcript;
+  fetch(
+    'http://widgetapi.vcaptcha.work/ValidCaptcha?domain=' +
+      valueDomain +
+      '&key=' +
+      valueKey +
+      '&actionID=' +
+      valueActionID+
+      '&actionReply=' +
+      valueActionReply
+  )
+    .then(function (response) {
+      // The API call was successful!
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(response);
+      }
+    })
+    .then(function (data) {
+      // This is the JSON from our response
+      
+try {
+  vcaptcha_actionResult(data.valid);
+} catch (error) {
+  console.log(error);
+}
+
+      console.log(data);
     })
     .catch(function (err) {
       // There was an error
