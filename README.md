@@ -22,7 +22,6 @@
 - [🧐 About <a name = "about"></a>](#-about-)
 - [🏁 Getting Started <a name = "getting_started"></a>](#-getting-started-)
 - [🚀 Deployment <a name = "deployment"></a>](#-deployment-)
-- [⛏️ Built Using <a name = "built_using"></a>](#️-built-using-)
 - [✍️ Authors <a name = "authors"></a>](#️-authors-)
 - [🎉 Acknowledgements <a name = "acknowledgement"></a>](#-acknowledgements-)
 
