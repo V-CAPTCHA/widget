@@ -6,7 +6,7 @@ html, body {
         font-family: 'Kanit', sans-serif;
     }
 
-    form {
+    #formCustom {
     border: 5px solid #f1f1f1;
     }
     input[type=text], input[type=password] {
