@@ -8,6 +8,7 @@ var vcaptcha_status;
 var c_Id;
 var c_Dataset;
 var c_DatasetQuestion;
+var fail_repeat = false;
 
 function init() {
   vcaptcha = document.getElementsByTagName('vcaptcha')[0];
@@ -63,11 +64,14 @@ function createForms() {
   let question = document.createElement('h2');
   question.innerHTML = c_DatasetQuestion; //question name
   question.style.textAlign = 'center';
+  question.id = 'question';
+
 
   //image for question
   let img = document.createElement('img');
   img.src = 'https://dataset.vcaptcha.work/q'+c_Dataset+'.jpg';
   img.style.maxWidth = '100%';
+  img.id = 'imgId';
 
   //Respone Text
   let responeUser = document.createElement('h3');
@@ -80,12 +84,22 @@ function createForms() {
   textGuide.innerHTML = "เรากำลังฟังคุณอยู่...";
   textGuide.style.textAlign = 'center';
   textGuide.id = "textGuide"
+  
+
+  //Timer Banner
+  let bannerTimer = document.createElement('p');
+  bannerTimer.innerHTML = "ทดสอบเวลา";
+  bannerTimer.style.textAlign = 'center';
+  bannerTimer.id = "bannerTimer"
+
+  
 
   // !!!Setup Div Prop!!!
   parent.appendChild(question);
   parent.appendChild(img);
   parent.appendChild(responeUser);
   parent.appendChild(textGuide);
+  parent.appendChild(bannerTimer);
   //authen Core Function
   recognition.start();
   //debug_api()
@@ -132,10 +146,16 @@ function getCaptcha_api() {
     })
     .then(function (data) {
       // This is the JSON from our response
+      console.log(data);
       c_Id = data.action_id;
       c_Dataset = data.dataset_img;
       c_DatasetQuestion = data.dataset_question;
-      vcaptcha.appendChild(createForms(vcaptcha)) //call captcha dialog
+      
+      if(fail_repeat==false){
+        vcaptcha.appendChild(createForms(vcaptcha)) //call captcha dialog
+      }
+      updateQuestion();
+      countdown(1)
     })
     .catch(function (err) {
       // There was an error
@@ -201,3 +221,39 @@ buttonActionVcaptcha.addEventListener('click', function (event) {
   const div = document.getElementById('dialogActionVcaptcha');
   div.remove();
 });
+
+
+
+function countdown(minutes) {
+  var seconds = 60;
+  var mins = minutes
+  function tick() {
+    var counter = document.getElementById("bannerTimer");
+    var current_minutes = mins-1
+    seconds--;
+    counter.innerHTML =
+      current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+    if( seconds > 0 ) {
+      setTimeout(tick, 1000);
+      
+    } else {
+      if(mins > 1){
+        countdown(mins-1);  
+      }
+    }
+    if(document.getElementById("bannerTimer").innerHTML == "0:00"){
+      document.getElementById("bannerTimer").style.color = "red";
+      fail_repeat=true;
+      getCaptcha_api();
+    }
+  }
+  tick();
+}
+
+
+function updateQuestion() {
+  document.getElementById('question').innerHTML = c_DatasetQuestion;
+  document.getElementById('imgId').src = 'https://dataset.vcaptcha.work/q'+c_Dataset+'.jpg';
+  
+}
+ 
