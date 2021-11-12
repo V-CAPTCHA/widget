@@ -38,7 +38,7 @@ This project require HTML & Javascript to use CDN for your website
 CDN this Code in your website with
 
 ```
-<script src="../vcaptchaWidget.js"></script>
+<script src="http://cdn.vcaptcha.work/"></script>
 ```
 
 and put use this tag script for begin a service
