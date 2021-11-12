@@ -9,10 +9,12 @@ var c_Id;
 var c_Dataset;
 var c_DatasetQuestion;
 var fail_repeat = false;
-
+var vcaptcha_ValueDomain;
+var vcaptcha_ValueKey;
 function init() {
   vcaptcha = document.getElementsByTagName('vcaptcha')[0];
   vcaptcha.appendChild(createDialog(vcaptcha));
+
 }
 
 function createDialog() {
@@ -45,6 +47,7 @@ function createDialog() {
 }
 
 function createForms() {
+
   let parent = document.createElement('div'); //create parent div for content
 
   // !!!Setup Div Prop!!!
@@ -101,7 +104,7 @@ function createForms() {
   parent.appendChild(textGuide);
   parent.appendChild(bannerTimer);
   //authen Core Function
-  recognition.start();
+  
   //debug_api()
   return parent;
 }
@@ -109,6 +112,7 @@ function createForms() {
 //Voice Recog Function
 
 recognition.onresult = function (event) {
+  console.log('SpeechRecognition is get Result..');
   transcript = event.results[0][0].transcript;
   document.getElementById('txtRespone').innerHTML = transcript;
   document.getElementById("textGuide").innerHTML = "เราได้ยินคุณแล้ว"
@@ -116,25 +120,38 @@ recognition.onresult = function (event) {
   //vcaptcha_actionResult("Success");
 };
 recognition.onstart = function () {
+  
   console.log('SpeechRecognition is Starting..');
   document.getElementById("textGuide").innerHTML = "เรากำลังฟังคุณอยู่..."
 };
 
 recognition.onspeechend = function () {
   // when user is done speaking
+  console.log('SpeechRecognition is Ended..');
   recognition.stop();
 };
+recognition.onaudioend = function() {
+  console.log('SpeechRecognition ended');
+  setTimeout(function(){ 
+
+    try {
+      recognition.start();
+    } catch (error) {
+      console.log("Start recognition repeation Warning. ignored ");
+    }
+
+   }, 500);
+}
 
 
 
 function getCaptcha_api() {
-  valueDomain = 'clienttest.com';
-  valueKey = '1150123vcaptcha';
+  vcaptcha_status = "Repeat";
   fetch(
     'http://widgetapi.vcaptcha.work/GetCaptcha?domain=' +
-      valueDomain +
+      vcaptcha_ValueDomain +
       '&key=' +
-      valueKey
+      vcaptcha_ValueKey
   )
     .then(function (response) {
       // The API call was successful!
@@ -154,6 +171,11 @@ function getCaptcha_api() {
       if(fail_repeat==false){
         vcaptcha.appendChild(createForms(vcaptcha)) //call captcha dialog
       }
+      try {
+        recognition.start();
+      } catch (error) {
+        console.log("Start recognition repeation Warning. ignored ");
+      }
       updateQuestion();
       countdown(1)
     })
@@ -164,15 +186,15 @@ function getCaptcha_api() {
 }
 
 function checkCaptcha_api() {
-  valueDomain = 'clienttest.com';
-  valueKey = '1150123vcaptcha';
+
+  
   valueActionID = c_Id;
   valueActionReply = transcript;
   fetch(
     'http://widgetapi.vcaptcha.work/ValidCaptcha?domain=' +
-      valueDomain +
+      vcaptcha_ValueDomain +
       '&key=' +
-      valueKey +
+      vcaptcha_ValueKey +
       '&actionID=' +
       valueActionID+
       '&actionReply=' +
@@ -196,6 +218,9 @@ try {
 }
 
       console.log(data);
+      if(data.Message == "This action is checked"){
+        document.getElementById('question').innerHTML = "คุณตอบคำถามนี้ไปแล้ว กรุณารอรอบคำถามใหม่"
+      }
     })
     .catch(function (err) {
       // There was an error
@@ -217,6 +242,9 @@ document
   });
 
 buttonActionVcaptcha.addEventListener('click', function (event) {
+  if(vcaptcha_ValueDomain == undefined||vcaptcha_ValueKey ==undefined ){
+    alert("Widget Module Error: don't configulation any key value")
+  }
   getCaptcha_api();
   const div = document.getElementById('dialogActionVcaptcha');
   div.remove();
@@ -225,7 +253,7 @@ buttonActionVcaptcha.addEventListener('click', function (event) {
 
 
 function countdown(minutes) {
-  var seconds = 60;
+  var seconds = 20;
   var mins = minutes
   function tick() {
     var counter = document.getElementById("bannerTimer");
@@ -245,6 +273,7 @@ function countdown(minutes) {
       document.getElementById("bannerTimer").style.color = "red";
       fail_repeat=true;
       getCaptcha_api();
+      
     }
   }
   tick();
@@ -254,6 +283,9 @@ function countdown(minutes) {
 function updateQuestion() {
   document.getElementById('question').innerHTML = c_DatasetQuestion;
   document.getElementById('imgId').src = 'https://dataset.vcaptcha.work/q'+c_Dataset+'.jpg';
+  document.getElementById('bannerTimer').style.color = "black";
+
+ 
   
 }
  
