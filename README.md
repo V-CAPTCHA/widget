@@ -50,7 +50,13 @@ and put use this tag script for begin a service
 function vcaptcha_actionResult(vcaptcha_action)
   {
       //put your business logic here !
+      //vcaptcha_action value if passed will be "Valid"
   }
+```
+add variable configulation from your key !
+```
+      vcaptcha_ValueDomain = 'your.domain';
+      vcaptcha_ValueKey = 'yourkey';
 ```
 
 ## ✍️ Authors <a name = "authors"></a>
