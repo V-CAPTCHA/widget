@@ -221,6 +221,9 @@ try {
       if(data.Message == "This action is checked"){
         document.getElementById('question').innerHTML = "คุณตอบคำถามนี้ไปแล้ว กรุณารอรอบคำถามใหม่"
       }
+      if(data.valid == "Not valid"){
+        document.getElementById('question').innerHTML = "คุณตอบคำถามผิด กรุณารอรอบคำถามใหม่"
+      }
     })
     .catch(function (err) {
       // There was an error
@@ -284,6 +287,7 @@ function updateQuestion() {
   document.getElementById('question').innerHTML = c_DatasetQuestion;
   document.getElementById('imgId').src = 'https://dataset.vcaptcha.work/q'+c_Dataset+'.jpg';
   document.getElementById('bannerTimer').style.color = "black";
+  document.getElementById('txtRespone').innerHTML = "พูดเพื่อตอบคำถาม";
 
  
   
