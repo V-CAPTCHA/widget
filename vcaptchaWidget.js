@@ -5,6 +5,7 @@ recognition.lang = 'th-TH';
 var transcript;
 var vcaptcha;
 var vcaptcha_status;
+var vcaptcha_progress_status;
 var c_Id;
 var c_Dataset;
 var c_DatasetQuestion;
@@ -133,7 +134,7 @@ recognition.onspeechend = function () {
 recognition.onaudioend = function() {
   console.log('SpeechRecognition ended');
   setTimeout(function(){ 
-
+if(!(vcaptcha_progress_status =="Stuck") && (vcaptcha_progress_status != "Passed"))
     try {
       recognition.start();
     } catch (error) {
@@ -146,7 +147,7 @@ recognition.onaudioend = function() {
 
 
 function getCaptcha_api() {
-  vcaptcha_status = "Repeat";
+  
   fetch(
     'http://widgetapi.vcaptcha.work/GetCaptcha?domain=' +
       vcaptcha_ValueDomain +
@@ -218,9 +219,17 @@ try {
 }
 
       console.log(data);
-      if(data.Message == "This action is checked"){
+      if((data.Message == "This action is checked")){
         document.getElementById('question').innerHTML = "คุณตอบคำถามนี้ไปแล้ว กรุณารอรอบคำถามใหม่"
+        stuckQuestion();
       }
+      else if(!(data.valid == "Valid")){
+        document.getElementById('question').innerHTML = "คุณตอบคำถามไม่ถูกต้อง กรุณารอรอบคำถามใหม่"
+        stuckQuestion();
+      }else{
+        passingQuestion();
+      }
+      
     })
     .catch(function (err) {
       // There was an error
@@ -253,9 +262,10 @@ buttonActionVcaptcha.addEventListener('click', function (event) {
 
 
 function countdown(minutes) {
-  var seconds = 20;
+  var seconds = 60;
   var mins = minutes
   function tick() {
+    if(!(vcaptcha_progress_status =="Passed")){
     var counter = document.getElementById("bannerTimer");
     var current_minutes = mins-1
     seconds--;
@@ -272,10 +282,12 @@ function countdown(minutes) {
     if(document.getElementById("bannerTimer").innerHTML == "0:00"){
       document.getElementById("bannerTimer").style.color = "red";
       fail_repeat=true;
+      vcaptcha_status = "Repeat";
       getCaptcha_api();
-      
+    
     }
-  }
+  }}
+  
   tick();
 }
 
@@ -284,8 +296,31 @@ function updateQuestion() {
   document.getElementById('question').innerHTML = c_DatasetQuestion;
   document.getElementById('imgId').src = 'https://dataset.vcaptcha.work/q'+c_Dataset+'.jpg';
   document.getElementById('bannerTimer').style.color = "black";
-
- 
-  
+  document.getElementById('txtRespone').innerHTML = "พูดเพื่อตอบคำถาม";
+  document.getElementById('question').style.color = "black";
+  document.getElementById('bannerTimer').style.color = "black";
+  document.getElementById('txtRespone').style.color = "black";
+  document.getElementById('textGuide').style.color = "black";
 }
- 
+
+function stuckQuestion() {
+  document.getElementById('question').style.color = "grey";
+  document.getElementById('bannerTimer').style.color = "grey";
+  document.getElementById('txtRespone').style.color = "grey";
+  document.getElementById('textGuide').style.color = "grey";
+  recognition.stop();
+  vcaptcha_progress_status = "Stuck";
+  recognition.abort();
+
+}
+
+function passingQuestion() {
+  document.getElementById('question').style.color = "green";
+  document.getElementById('bannerTimer').style.color = "green";
+  document.getElementById('txtRespone').style.color = "green";
+  document.getElementById('textGuide').style.color = "green";
+  vcaptcha_progress_status = "Passed";
+  recognition.stop();
+  recognition.abort();
+
+}
