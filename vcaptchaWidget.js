@@ -40,7 +40,7 @@ function createFailDialog(message) {
   DialogButton.style.color = 'white';
   DialogButton.style.border = 'None';
   DialogButton.style.width = '100%';
-  DialogButton.style.height = '35px';
+  DialogButton.style.height = '50px';
 
   parent.appendChild(DialogButton);
   return parent;
