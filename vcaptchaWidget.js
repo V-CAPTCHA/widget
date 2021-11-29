@@ -15,7 +15,7 @@ var vcaptcha_ValueKey;
 
 
 if (location.protocol !== "https:") {
-  alert("This Host is't HTTPS so VCAPTCHA will won't work !")
+  failDialog("This Host is't HTTPS so VCAPTCHA will won't work !")
 }
 
 
@@ -26,6 +26,31 @@ function init() {
   
 
 }
+
+function failDialog(message){
+  vcaptcha.appendChild(createFailDialog(message,vcaptcha));
+}
+
+function createFailDialog(message) {
+  let parent = document.createElement('p'); //create parent div for content
+
+  // !!!Setup Div Dialog!!!
+  parent.id = 'FaildialogActionVcaptcha';
+
+  //Dialog Button
+  let DialogButton = document.createElement('button');
+  DialogButton.innerHTML = message;
+  DialogButton.style.textAlign = 'center';
+  DialogButton.style.backgroundColor = 'red';
+  DialogButton.style.color = 'white';
+  DialogButton.style.border = 'None';
+  DialogButton.style.width = '100%';
+  DialogButton.style.height = '35px';
+
+  parent.appendChild(DialogButton);
+  return parent;
+}
+
 
 function createDialog() {
   let parent = document.createElement('div'); //create parent div for content
@@ -192,7 +217,7 @@ function getCaptcha_api() {
     .catch(function (err) {
       // There was an error
       console.warn('Something went wrong.', err);
-      alert("Can't Connet to VCAPTCHA server. please check Your Key or Domain.")
+      failDialog("Can't Connet to VCAPTCHA server. please check Your Key or Domain.")
     });
 }
 
