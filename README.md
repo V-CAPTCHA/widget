@@ -55,7 +55,6 @@ function vcaptcha_actionResult(vcaptcha_action)
 ```
 add variable configulation from your key !
 ```
-      vcaptcha_ValueDomain = 'your.domain';
       vcaptcha_ValueKey = 'yourkey';
 ```
 

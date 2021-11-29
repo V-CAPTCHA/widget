@@ -10,11 +10,20 @@ var c_Id;
 var c_Dataset;
 var c_DatasetQuestion;
 var fail_repeat = false;
-var vcaptcha_ValueDomain;
+var vcaptcha_ValueDomain = window.location.hostname;
 var vcaptcha_ValueKey;
+
+
+if (location.protocol !== "https:") {
+  alert("This Host is't HTTPS so VCAPTCHA will won't work !")
+}
+
+
 function init() {
   vcaptcha = document.getElementsByTagName('vcaptcha')[0];
   vcaptcha.appendChild(createDialog(vcaptcha));
+
+  
 
 }
 
@@ -183,6 +192,7 @@ function getCaptcha_api() {
     .catch(function (err) {
       // There was an error
       console.warn('Something went wrong.', err);
+      alert("Can't Connet to VCAPTCHA server. please check Your Key or Domain.")
     });
 }
 
