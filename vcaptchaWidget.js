@@ -12,6 +12,7 @@ var c_DatasetQuestion;
 var fail_repeat = false;
 var vcaptcha_ValueDomain = window.location.hostname;
 var vcaptcha_ValueKey;
+var vcaptcha_devtoggle = false;
 
 if (location.protocol !== 'https:') {
   failDialog("This Host is't HTTPS so VCAPTCHA will won't work !");
@@ -23,7 +24,8 @@ function init() {
 }
 
 function failDialog(message) {
-  vcaptcha.appendChild(createFailDialog(message, vcaptcha));
+  if(vcaptcha_devtoggle == false){vcaptcha.appendChild(createFailDialog(message, vcaptcha));}
+
 }
 
 function createFailDialog(message) {
