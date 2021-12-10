@@ -24,8 +24,8 @@ function init() {
 }
 
 function failDialog(message) {
-  if(vcaptcha_devtoggle == false){vcaptcha.appendChild(createFailDialog(message, vcaptcha));}
-
+  var url = new URL(window.location.href);
+  if(url.searchParams.get("dev")!=1){vcaptcha.appendChild(createFailDialog(message, vcaptcha));}
 }
 
 function createFailDialog(message) {
