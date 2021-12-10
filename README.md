@@ -58,6 +58,12 @@ add variable configulation from your key !
       vcaptcha_ValueKey = 'yourkey';
 ```
 
+If you are developer and want to dev mode or hide some warning. you can put this get parameter on url to come dev mode 
+
+```
+      ?dev=1
+```
+
 ## ✍️ Authors <a name = "authors"></a>
 
 - [@thanatath](https://github.com/thanatath) 
