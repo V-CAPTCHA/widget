@@ -101,7 +101,7 @@ function createForms() {
 
   //image for question
   let img = document.createElement('img');
-  img.src = 'https://dataset.vcaptcha.work/q' + c_Dataset + '.jpg';
+  img.src = 'https://dataset.vcaptcha.work/' + c_Dataset + '.jpg';
   img.style.maxWidth = '100%';
   img.id = 'imgId';
 
@@ -318,7 +318,7 @@ function countdown(minutes) {
 function updateQuestion() {
   document.getElementById('question').innerHTML = c_DatasetQuestion;
   document.getElementById('imgId').src =
-    'https://dataset.vcaptcha.work/q' + c_Dataset + '.jpg';
+    'https://dataset.vcaptcha.work/' + c_Dataset + '.jpg';
   document.getElementById('bannerTimer').style.color = 'black';
   document.getElementById('txtRespone').innerHTML = 'พูดเพื่อตอบคำถาม';
   document.getElementById('question').style.color = 'black';
