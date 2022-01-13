@@ -104,7 +104,7 @@ function createForms() {
 
   //image for question
   let img = document.createElement('img');
-  img.src = widgetDataset + '/q' + c_Dataset + '.jpg';
+  img.src = widgetDataset +'/'+ c_Dataset + '.jpg';
   img.style.maxWidth = '100%';
   img.id = 'imgId';
 
@@ -219,7 +219,7 @@ function checkCaptcha_api() {
   valueActionID = c_Id;
   valueActionReply = transcript;
   fetch(
-   widgetURL+'+/ValidCaptcha?domain=' +
+   widgetURL+'/ValidCaptcha?domain=' +
       vcaptcha_ValueDomain +
       '&key=' +
       vcaptcha_ValueKey +
@@ -321,7 +321,7 @@ function countdown(minutes) {
 function updateQuestion() {
   document.getElementById('question').innerHTML = c_DatasetQuestion;
   document.getElementById('imgId').src =
-    widgetDataset+'/q' + c_Dataset + '.jpg';
+    widgetDataset +'/'+ c_Dataset + '.jpg';
   document.getElementById('bannerTimer').style.color = 'black';
   document.getElementById('txtRespone').innerHTML = 'พูดเพื่อตอบคำถาม';
   document.getElementById('question').style.color = 'black';
