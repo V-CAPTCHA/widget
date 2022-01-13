@@ -172,7 +172,7 @@ recognition.onaudioend = function () {
 
 function getCaptcha_api() {
   fetch(
-    'http://widgetapi.vcaptcha.work/GetCaptcha?domain=' +
+    'https://widgetapi.vcaptcha.work/GetCaptcha?domain=' +
       vcaptcha_ValueDomain +
       '&key=' +
       vcaptcha_ValueKey
@@ -216,7 +216,7 @@ function checkCaptcha_api() {
   valueActionID = c_Id;
   valueActionReply = transcript;
   fetch(
-    'http://widgetapi.vcaptcha.work/ValidCaptcha?domain=' +
+    'https://widgetapi.vcaptcha.work/ValidCaptcha?domain=' +
       vcaptcha_ValueDomain +
       '&key=' +
       vcaptcha_ValueKey +
