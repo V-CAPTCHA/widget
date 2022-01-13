@@ -13,6 +13,9 @@ var fail_repeat = false;
 var vcaptcha_ValueDomain = window.location.hostname;
 var vcaptcha_ValueKey;
 var vcaptcha_devtoggle = false;
+var widgetURL = 'https://widgetapi.vcaptcha.work';
+var widgetDataset = 'https://dataset.vcaptcha.work';
+
 
 if (location.protocol !== 'https:') {
   failDialog("This Host is't HTTPS so VCAPTCHA will won't work !");
@@ -101,7 +104,7 @@ function createForms() {
 
   //image for question
   let img = document.createElement('img');
-  img.src = 'https://dataset.vcaptcha.work/q' + c_Dataset + '.jpg';
+  img.src = widgetDataset + '/q' + c_Dataset + '.jpg';
   img.style.maxWidth = '100%';
   img.id = 'imgId';
 
@@ -172,7 +175,7 @@ recognition.onaudioend = function () {
 
 function getCaptcha_api() {
   fetch(
-    'http://widgetapi.vcaptcha.work/GetCaptcha?domain=' +
+    widgetURL+'/GetCaptcha?domain=' +
       vcaptcha_ValueDomain +
       '&key=' +
       vcaptcha_ValueKey
@@ -216,7 +219,7 @@ function checkCaptcha_api() {
   valueActionID = c_Id;
   valueActionReply = transcript;
   fetch(
-    'http://widgetapi.vcaptcha.work/ValidCaptcha?domain=' +
+   widgetURL+'+/ValidCaptcha?domain=' +
       vcaptcha_ValueDomain +
       '&key=' +
       vcaptcha_ValueKey +
@@ -318,7 +321,7 @@ function countdown(minutes) {
 function updateQuestion() {
   document.getElementById('question').innerHTML = c_DatasetQuestion;
   document.getElementById('imgId').src =
-    'https://dataset.vcaptcha.work/q' + c_Dataset + '.jpg';
+    widgetDataset+'/q' + c_Dataset + '.jpg';
   document.getElementById('bannerTimer').style.color = 'black';
   document.getElementById('txtRespone').innerHTML = 'พูดเพื่อตอบคำถาม';
   document.getElementById('question').style.color = 'black';
