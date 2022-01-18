@@ -13,6 +13,10 @@ var fail_repeat = false;
 var vcaptcha_ValueDomain = window.location.hostname;
 var vcaptcha_ValueKey;
 var vcaptcha_devtoggle = false;
+var widgetURL = 'https://widgetapi.vcaptcha.work';
+var widgetDataset = 'https://dataset.vcaptcha.work';
+
+
 
 if (location.protocol !== 'https:') {
   failDialog("This Host is't HTTPS so VCAPTCHA will won't work !");
@@ -94,14 +98,15 @@ function createForms() {
   // !!!Config block content for child prop!!!
 
   //question name
-  let question = document.createElement('h2');
-  question.innerHTML = c_DatasetQuestion; //question name
+  let question = document.createElement('canvas');
+  question.innerHTML = 'คำถาม'; //question name
   question.style.textAlign = 'center';
+  question.style.maxWidth = '100%';
   question.id = 'question';
 
   //image for question
   let img = document.createElement('img');
-  img.src = 'https://dataset.vcaptcha.work/' + c_Dataset + '.jpg';
+  img.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
   img.style.maxWidth = '100%';
   img.id = 'imgId';
 
@@ -122,7 +127,7 @@ function createForms() {
   bannerTimer.innerHTML = 'ทดสอบเวลา';
   bannerTimer.style.textAlign = 'center';
   bannerTimer.id = 'bannerTimer';
-
+  
   // !!!Setup Div Prop!!!
   parent.appendChild(question);
   parent.appendChild(img);
@@ -132,6 +137,7 @@ function createForms() {
   //authen Core Function
 
   //debug_api()
+  
   return parent;
 }
 
@@ -172,7 +178,7 @@ recognition.onaudioend = function () {
 
 function getCaptcha_api() {
   fetch(
-    'https://widgetapi.vcaptcha.work/GetCaptcha?domain=' +
+    widgetURL+'/GetCaptcha?domain=' +
       vcaptcha_ValueDomain +
       '&key=' +
       vcaptcha_ValueKey
@@ -210,13 +216,14 @@ function getCaptcha_api() {
         "Can't Connet to VCAPTCHA server. please check Your Key or Domain."
       );
     });
+ 
 }
 
 function checkCaptcha_api() {
   valueActionID = c_Id;
   valueActionReply = transcript;
   fetch(
-    'https://widgetapi.vcaptcha.work/ValidCaptcha?domain=' +
+   widgetURL+'/ValidCaptcha?domain=' +
       vcaptcha_ValueDomain +
       '&key=' +
       vcaptcha_ValueKey +
@@ -316,9 +323,11 @@ function countdown(minutes) {
 }
 
 function updateQuestion() {
-  document.getElementById('question').innerHTML = c_DatasetQuestion;
+   
+  createtextcanvas(c_DatasetQuestion);
+
   document.getElementById('imgId').src =
-    'https://dataset.vcaptcha.work/' + c_Dataset + '.jpg';
+    widgetDataset +'/'+ c_Dataset + '.jpg';
   document.getElementById('bannerTimer').style.color = 'black';
   document.getElementById('txtRespone').innerHTML = 'พูดเพื่อตอบคำถาม';
   document.getElementById('question').style.color = 'black';
@@ -346,3 +355,51 @@ function passingQuestion() {
   recognition.stop();
   recognition.abort();
 }
+
+ function createtextcanvas(text) {
+  var c = document.getElementById("question");
+  var ctx = c.getContext("2d");
+  ctx.clearRect(0, 0, c.width, c.height);
+  ctx.textAlign = "center";
+  ctx.font = '50px Arial';
+  ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
+
+  ctx.fillText(randomaddspacetotext(text), c.width / 2, c.height - 50, c.width);
+  canvasdrawrandomline()
+}
+
+function randomaddspacetotext(text) {
+  var text_length = text.length;
+  var text_array = text.split('');
+  var text_new = '';
+  for (var i = 0; i < text_length; i++) {
+    if (i == 0) {
+      text_new += text_array[i];
+    } else {
+      var random_number = Math.floor(Math.random() * (2 - 0 + 1)) + 0;
+      if (random_number == 1) {
+        text_new += ' ' + text_array[i];
+      } else {
+        text_new += text_array[i];
+      }
+    }
+  }
+  return text_new;
+}
+
+ function canvasdrawrandomline() {
+  var c = document.getElementById("question");
+  var ctx = c.getContext("2d");
+  var tmp = 0;
+  while (tmp<10) {
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgb(' + Math.floor(Math.random() * (255 - 0 + 1)) + ',' + Math.floor(Math.random() * (255 - 0 + 1)) + ',' + Math.floor(Math.random() * (255 - 0 + 1)) + ')';
+
+  ctx.moveTo(Math.random() * c.width, Math.random() * c.height);
+  ctx.lineTo(Math.random() * c.width, Math.random() * c.height);
+  ctx.stroke();
+  tmp++;
+  }
+}
+
+ 
