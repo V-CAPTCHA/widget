@@ -362,7 +362,8 @@ function passingQuestion() {
   ctx.clearRect(0, 0, c.width, c.height);
   ctx.textAlign = "center";
   ctx.font = '50px Arial';
-  ctx.fillText(randomaddspacetotext(text), c.width / 2, c.height - 100, c.width);
+  ctx.fillText(randomaddspacetotext(text), c.width / 2, c.height - 50, c.width);
+  canvasdrawrandomline()
 }
 
 function randomaddspacetotext(text) {
@@ -382,4 +383,17 @@ function randomaddspacetotext(text) {
     }
   }
   return text_new;
+}
+
+ function canvasdrawrandomline() {
+  var c = document.getElementById("question");
+  var ctx = c.getContext("2d");
+  var tmp = 0;
+  while (tmp<10) {
+    ctx.beginPath();
+  ctx.moveTo(Math.random() * c.width, Math.random() * c.height);
+  ctx.lineTo(Math.random() * c.width, Math.random() * c.height);
+  ctx.stroke();
+  tmp++;
+  }
 }
