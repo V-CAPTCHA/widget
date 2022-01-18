@@ -17,6 +17,7 @@ var widgetURL = 'https://widgetapi.vcaptcha.work';
 var widgetDataset = 'https://dataset.vcaptcha.work';
 
 
+
 if (location.protocol !== 'https:') {
   failDialog("This Host is't HTTPS so VCAPTCHA will won't work !");
 }
@@ -97,14 +98,15 @@ function createForms() {
   // !!!Config block content for child prop!!!
 
   //question name
-  let question = document.createElement('h2');
-  question.innerHTML = c_DatasetQuestion; //question name
+  let question = document.createElement('canvas');
+  question.innerHTML = 'คำถาม'; //question name
   question.style.textAlign = 'center';
+  question.style.maxWidth = '100%';
   question.id = 'question';
 
   //image for question
   let img = document.createElement('img');
-  img.src = widgetDataset +'/'+ c_Dataset + '.jpg';
+  img.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
   img.style.maxWidth = '100%';
   img.id = 'imgId';
 
@@ -125,7 +127,7 @@ function createForms() {
   bannerTimer.innerHTML = 'ทดสอบเวลา';
   bannerTimer.style.textAlign = 'center';
   bannerTimer.id = 'bannerTimer';
-
+  
   // !!!Setup Div Prop!!!
   parent.appendChild(question);
   parent.appendChild(img);
@@ -135,6 +137,7 @@ function createForms() {
   //authen Core Function
 
   //debug_api()
+  
   return parent;
 }
 
@@ -213,6 +216,7 @@ function getCaptcha_api() {
         "Can't Connet to VCAPTCHA server. please check Your Key or Domain."
       );
     });
+ 
 }
 
 function checkCaptcha_api() {
@@ -319,7 +323,9 @@ function countdown(minutes) {
 }
 
 function updateQuestion() {
-  document.getElementById('question').innerHTML = c_DatasetQuestion;
+   
+  createtextcanvas(c_DatasetQuestion);
+
   document.getElementById('imgId').src =
     widgetDataset +'/'+ c_Dataset + '.jpg';
   document.getElementById('bannerTimer').style.color = 'black';
@@ -348,4 +354,12 @@ function passingQuestion() {
   vcaptcha_progress_status = 'Passed';
   recognition.stop();
   recognition.abort();
+}
+
+ function createtextcanvas(text) {
+  var c = document.getElementById("question");
+  var ctx = c.getContext("2d");
+  ctx.textAlign = "center";
+  ctx.font = '20px Arial';
+  ctx.fillText(text, c.width / 2, c.height - 100);
 }
