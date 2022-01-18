@@ -359,7 +359,27 @@ function passingQuestion() {
  function createtextcanvas(text) {
   var c = document.getElementById("question");
   var ctx = c.getContext("2d");
+  ctx.clearRect(0, 0, c.width, c.height);
   ctx.textAlign = "center";
-  ctx.font = '20px Arial';
-  ctx.fillText(text, c.width / 2, c.height - 100);
+  ctx.font = '50px Arial';
+  ctx.fillText(randomaddspacetotext(text), c.width / 2, c.height - 100, c.width);
+}
+
+function randomaddspacetotext(text) {
+  var text_length = text.length;
+  var text_array = text.split('');
+  var text_new = '';
+  for (var i = 0; i < text_length; i++) {
+    if (i == 0) {
+      text_new += text_array[i];
+    } else {
+      var random_number = Math.floor(Math.random() * (2 - 0 + 1)) + 0;
+      if (random_number == 1) {
+        text_new += ' ' + text_array[i];
+      } else {
+        text_new += text_array[i];
+      }
+    }
+  }
+  return text_new;
 }
