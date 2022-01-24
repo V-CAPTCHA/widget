@@ -251,13 +251,9 @@ function checkCaptcha_api() {
 
       console.log(data);
       if (data.Message == 'This action is checked') {
-        document.getElementById('question').innerHTML =
-          'คุณตอบคำถามนี้ไปแล้ว กรุณารอรอบคำถามใหม่';
-        stuckQuestion();
+        stuckQuestion('คุณตอบคำถามนี้ไปแล้ว กรุณารอรอบคำถามใหม่');
       } else if (!(data.valid == 'Valid')) {
-        document.getElementById('question').innerHTML =
-          'คุณตอบคำถามไม่ถูกต้อง กรุณารอรอบคำถามใหม่';
-        stuckQuestion();
+        stuckQuestion('คุณตอบคำถามนี้ผิด กรุณารอรอบคำถามใหม่');
       } else {
         passingQuestion();
       }
@@ -326,8 +322,7 @@ function updateQuestion() {
    
   createtextcanvas(c_DatasetQuestion);
 
-  document.getElementById('imgId').src =
-    widgetDataset +'/'+ c_Dataset + '.jpg';
+  document.getElementById('imgId').src = widgetDataset +'/'+ c_Dataset;
   document.getElementById('bannerTimer').style.color = 'black';
   document.getElementById('txtRespone').innerHTML = 'พูดเพื่อตอบคำถาม';
   document.getElementById('question').style.color = 'black';
@@ -336,7 +331,8 @@ function updateQuestion() {
   document.getElementById('textGuide').style.color = 'black';
 }
 
-function stuckQuestion() {
+function stuckQuestion(text) {
+  createtextcanvas(text);
   document.getElementById('question').style.color = 'grey';
   document.getElementById('bannerTimer').style.color = 'grey';
   document.getElementById('txtRespone').style.color = 'grey';
