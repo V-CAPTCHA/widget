@@ -18,6 +18,23 @@ pipeline {
 }
         }
         }
+
+
+                stage('Obfuscate Javascript code') {
+            steps {
+                
+                sh 'javascript-obfuscator vcaptchaWidget.js'
+                sh 'uglifyjs -o vcaptchaWidget-min.js --compress --mangle -- vcaptchaWidget-obfuscated.js'
+            }
+        }
+                        stage('Copy Obfuscated file to CDN location') {
+            steps {
+                
+                sh 'cp vcaptchaWidget-min.js /var/www/cdn/vcaptchaWidget.js'
+            }
+        }
+
+
                stage('Docker PreBuild Clear old image') {
             steps {
                 
