@@ -54,7 +54,7 @@
       <script src="../vcaptchaWidget.js"></script>
       <script>
         var myclientCheck = false;
-        vcaptcha_ValueKey = 'C31kupw4llGeXC0M9kxsd';
+        vcaptcha_ValueKey = 'KfIq_GclXBOnpBnr42h34';
         function checkAuthen() {
           if (
             document.getElementById('unamevalue').value ==
@@ -62,9 +62,10 @@
             document.getElementById('pwdvalue').value == 'vcaptcha_password' &&
             myclientCheck
           ) {
-            alert('Authen Passes');
+            alert('ยืนยันตัวตนสำเร็จ กำลังเข้าสู่ระบบ');
+            location.reload();
           } else {
-            alert('Authen Not Passes');
+            alert('เข้าสู่ระบบไม่สำเร็จ กรุณายืนยันตัวตนก่อน');
           }
         }
 
