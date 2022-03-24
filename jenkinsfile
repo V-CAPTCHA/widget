@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git Clone') {
+            steps {
+                cleanWs()
+                git branch: 'main',url: 'https://github.com/V-CAPTCHA/widget.git'
+            }
+        }
+        stage('SonarQube Analysis') {
+            environment {
+            scannerHome = tool 'SonarLocal'
+        }
+            steps{
+               withSonarQubeEnv('SonarLocal') {
+                   sh "${scannerHome}/bin/sonar-scanner"
+}
+        }
+        }
+               stage('Docker PreBuild Clear old image') {
+            steps {
+                
+                sh 'docker stop widget-demo-page || true && docker rm widget-demo-page || true'
+                sh 'docker image rm widget-demo-page || true'
+            }
+        }
+                stage('Docker Build') {
+            steps {
+                
+                sh 'docker build . -t widget-demo-page'
+            }
+        }
+                stage('Docker Deploy') {
+            steps {
+                
+                sh 'docker run -p 92:80/tcp --restart=always -d --name widget-demo-page widget-demo-page:latest'
+            }
+        }
+    }
+}
