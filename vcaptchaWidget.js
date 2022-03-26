@@ -445,15 +445,11 @@ function waveform_display() {
           values += array[i];
         }
         var average = values / length;
-<<<<<<< HEAD
-        document.getElementById("micIcon").style.opacity = (average / 50);
-=======
         if(vcaptcha_progress_status == 'Waiting'){document.getElementById("micIcon").style.opacity = (average / 50);}else{
           document.getElementById("micIcon").style.opacity = 0;
         }
         //console.log(vcaptcha_progress_status);
         
->>>>>>> 7047bb26a1577974b34f24ff3f9142812535e260
         //console.log (average);
       }; // end fn stream
     },
