@@ -5,7 +5,7 @@ recognition.lang = 'th-TH';
 var transcript;
 var vcaptcha;
 var vcaptcha_status;
-var vcaptcha_progress_status;
+var vcaptcha_progress_status = 'Waiting';
 var c_Id;
 var c_Dataset;
 var c_DatasetQuestion;
@@ -48,7 +48,11 @@ function createFailDialog(message) {
   DialogButton.style.width = '100%';
   DialogButton.style.height = '50px';
 
+
+  
   parent.appendChild(DialogButton);
+  
+  
   return parent;
 }
 
@@ -77,6 +81,7 @@ function createDialog() {
   DialogButton.style.width = '100%';
   DialogButton.style.height = '35px';
 
+  
   parent.appendChild(DialogButton);
   return parent;
 }
@@ -163,6 +168,11 @@ recognition.onstart = function () {
   document.getElementById('textGuide').innerHTML = 'เรากำลังฟังคุณอยู่...';
 };
 
+recognition.addEventListener('speechend', function() {
+  console.log('SpeechRecognition is Stopped..');
+});
+
+
 recognition.onspeechend = function () {
   // when user is done speaking
   console.log('SpeechRecognition is Ended..');
@@ -172,8 +182,7 @@ recognition.onaudioend = function () {
   console.log('SpeechRecognition ended');
   setTimeout(function () {
     if (
-      !(vcaptcha_progress_status == 'Stuck') &&
-      vcaptcha_progress_status != 'Passed'
+      (vcaptcha_progress_status == 'Waiting') 
     )
       try {
         recognition.start();
@@ -214,6 +223,8 @@ function getCaptcha_api() {
         console.log('Start recognition repeation Warning. ignored ');
       }
       updateQuestion();
+      vcaptcha_progress_status = 'Waiting';
+      console.log(vcaptcha_progress_status)
       waveform_display()
       countdown(1);
     })
@@ -329,7 +340,6 @@ function countdown(minutes) {
 function updateQuestion() {
    
   createtextcanvas(c_DatasetQuestion);
-
   document.getElementById('imgId').src = widgetDataset +'/'+ c_Dataset;
   document.getElementById('bannerTimer').style.color = 'black';
   document.getElementById('txtRespone').innerHTML = 'พูดเพื่อตอบคำถาม';
@@ -337,6 +347,7 @@ function updateQuestion() {
   document.getElementById('bannerTimer').style.color = 'black';
   document.getElementById('txtRespone').style.color = 'black';
   document.getElementById('textGuide').style.color = 'black';
+
 }
 
 function stuckQuestion(text) {
@@ -345,8 +356,8 @@ function stuckQuestion(text) {
   document.getElementById('bannerTimer').style.color = 'grey';
   document.getElementById('txtRespone').style.color = 'grey';
   document.getElementById('textGuide').style.color = 'grey';
-  recognition.stop();
   vcaptcha_progress_status = 'Stuck';
+  recognition.stop();
   recognition.abort();
 }
 
@@ -407,7 +418,8 @@ function randomaddspacetotext(text) {
 }
 
 function waveform_display() {
-  console.log("starting...");
+ 
+  console.log("starting waveform display ...");
   navigator.getUserMedia = navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia;
@@ -433,7 +445,15 @@ function waveform_display() {
           values += array[i];
         }
         var average = values / length;
+<<<<<<< HEAD
         document.getElementById("micIcon").style.opacity = (average / 50);
+=======
+        if(vcaptcha_progress_status == 'Waiting'){document.getElementById("micIcon").style.opacity = (average / 50);}else{
+          document.getElementById("micIcon").style.opacity = 0;
+        }
+        //console.log(vcaptcha_progress_status);
+        
+>>>>>>> 7047bb26a1577974b34f24ff3f9142812535e260
         //console.log (average);
       }; // end fn stream
     },
@@ -443,4 +463,5 @@ function waveform_display() {
   } else {
     console.log("getUserMedia not supported");
   }
+ 
 }
