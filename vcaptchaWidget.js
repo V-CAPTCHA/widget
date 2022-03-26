@@ -434,7 +434,7 @@ function waveform_display() {
         }
         var average = values / length;
         document.getElementById("micIcon").style.opacity = (average / 50);
-        console.log (average);
+        //console.log (average);
       }; // end fn stream
     },
     function (err) {
