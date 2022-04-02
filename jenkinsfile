@@ -22,7 +22,7 @@ pipeline {
 
                 stage('Obfuscate Javascript code') {
             steps {
-                
+                sh 'npm run build'
                 sh 'javascript-obfuscator vcaptchaWidget.js'
                 sh 'uglifyjs -o vcaptchaWidget-min.js --compress --mangle -- vcaptchaWidget-obfuscated.js'
             }

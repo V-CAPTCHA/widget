@@ -33,6 +33,24 @@ Human Verification Service using Voice Recognition
 
 This project require HTML & Javascript to use CDN for your website
 
+## 🧪 Test or Build <a name = "deployment"></a>
+
+You can run local test for local environment by
+
+```
+npm run local
+```
+You can run local test for Production environment by
+
+```
+npm run production
+```
+
+Or build ?
+```
+npm run build
+```
+
 ## 🚀 Deployment <a name = "deployment"></a>
 
 CDN this Code in your website with
