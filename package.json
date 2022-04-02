@@ -5,7 +5,9 @@
   "main": "vcaptchaWidget.js",
   "scripts": {
     "local": "npx uglifyjs ./Vcaptcha_Widget/*.js ./Vcaptcha_Widget/component/*.js -o widget.min.js & start http://127.0.0.1:8080/Demo_Local/?dev=1 & http-server",
-    "production": "npx uglifyjs ./Vcaptcha_Widget/*.js ./Vcaptcha_Widget/component/*.js -o widget.min.js & start http://127.0.0.1:8080/Demo_Production/?dev=1 & http-server"
+    "production": "npx uglifyjs ./Vcaptcha_Widget/*.js ./Vcaptcha_Widget/component/*.js -o widget.min.js & start http://127.0.0.1:8080/Demo_Production/?dev=1 & http-server",
+    "build": "npx uglifyjs ./Vcaptcha_Widget/*.js ./Vcaptcha_Widget/component/*.js -o vcaptchaWidget.js"
+
   },
   "repository": {
     "type": "git",
