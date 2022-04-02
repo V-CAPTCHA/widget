@@ -100,5 +100,11 @@ dist
 # DynamoDB Local files
 .dynamodb/
 
+# node_modules Local files
+.node_modules/
+
 # TernJS port file
 .tern-port
+package-lock.json
+widget.min.js
+vcaptchaWidget.js

@@ -1,0 +1,25 @@
+{
+  "name": "widget",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r   <a href=\"\" rel=\"noopener\">\r  <img width=200px height=200px src=\"https://avatars.githubusercontent.com/u/89780796?s=400&u=b179f6040d24c70e5e15560c17dd22c3ace8d688&v=4\" alt=\"Project logo\"></a>\r </p>",
+  "main": "vcaptchaWidget.js",
+  "scripts": {
+    "local": "npx uglifyjs ./Vcaptcha_Widget/*.js ./Vcaptcha_Widget/component/*.js -o widget.min.js & start http://127.0.0.1:8080/Demo_Local/?dev=1 & http-server",
+    "production": "npx uglifyjs ./Vcaptcha_Widget/*.js ./Vcaptcha_Widget/component/*.js -o widget.min.js & start http://127.0.0.1:8080/Demo_Production/?dev=1 & http-server",
+    "build": "npx uglifyjs ./Vcaptcha_Widget/*.js ./Vcaptcha_Widget/component/*.js -o vcaptchaWidget.js"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/V-CAPTCHA/widget.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/V-CAPTCHA/widget/issues"
+  },
+  "homepage": "https://github.com/V-CAPTCHA/widget#readme",
+  "dependencies": {
+    "uglify-js": "^3.15.3"
+  }
+}
