@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    
+    <title>Demo Widget Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="formCustom">
+      <h1>เข้าสู่ระบบ</h1>
+      <h4><u>Demo Page for Widget</u></h4>
+      <div class="formcontainer">
+        <hr />
+        <div class="container">
+          <label for="uname"><strong>ชื่อผู้ใช้</strong></label>
+          <input
+            type="text"
+            placeholder="โปรดกรอก ชื่อผู้ใช้งาน"
+            name="uname"
+            id="unamevalue"
+            value="vcaptcha_user_test"
+            required
+          />
+          <label for="psw"><strong>รหัสผ่าน</strong></label>
+          <input
+            type="password"
+            placeholder="โปรดกรอก รหัสผ่าน"
+            value="vcaptcha_password"
+            id="pwdvalue"
+            name="psw"
+            required
+          />
+        </div>
+        <vcaptcha></vcaptcha>
+
+        <button onclick="checkAuthen()" id="buttond" disabled type="submit">
+          เข้าสู่ระบบ
+        </button>
+
+        <div class="container" style="background-color: #eee">
+          <label style="padding-left: 15px">
+            <input type="checkbox" checked="checked" name="remember" /> จดจำฉัน
+          </label>
+          <span class="psw"><a href="#"> ลืมรหัสผ่าน?</a></span>
+        </div>
+      </div>
+      <script src="https://cdn.vcaptcha.work/"></script>
+      <script>
+        var myclientCheck = false;
+        vcaptcha_ValueKey = 'GHgaL1m3IsjpkYwsog7vr';
+        function checkAuthen() {
+          if (
+            document.getElementById('unamevalue').value ==
+              'vcaptcha_user_test' &&
+            document.getElementById('pwdvalue').value == 'vcaptcha_password' &&
+            myclientCheck
+          ) {
+            alert('ยืนยันตัวตนสำเร็จ กำลังเข้าสู่ระบบ');
+            location.reload();
+          } else {
+            alert('เข้าสู่ระบบไม่สำเร็จ กรุณายืนยันตัวตนก่อน');
+          }
+        }
+
+        function vcaptcha_actionResult(vcaptcha_action) {
+          if (vcaptcha_action == 'Valid') {
+            document.getElementById('buttond').disabled = false;
+            myclientCheck = true;
+          } else {
+            document.getElementById('buttond').disabled = true;
+            myclientCheck = false;
+          }
+        }
+      </script>
+    </div>
+  </body>
+</html>
