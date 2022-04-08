@@ -10,4 +10,12 @@ function init() {
 }
 
 
-
+buttonActionVcaptcha.addEventListener('click', function (event) {
+  if (vcaptcha_ValueDomain == undefined || vcaptcha_ValueKey == undefined) {
+    alert("Widget Module Error: don't configulation any key value");
+  }
+  
+  getCaptcha_api();
+  const div = document.getElementById('dialogActionVcaptcha');
+  div.remove();
+});
