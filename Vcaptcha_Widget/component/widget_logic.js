@@ -32,7 +32,7 @@ function countdown(minutes) {
   }
   
   function updateQuestion() {
-     
+    deloading()
     createtextcanvas(c_DatasetQuestion);
     document.getElementById('imgId').src = widgetDataset +'/'+ c_Dataset;
     document.getElementById('bannerTimer').style.color = 'black';
@@ -65,3 +65,11 @@ function countdown(minutes) {
     recognition.abort();
   }
   
+  function loading(){
+    vcaptcha = document.getElementsByTagName('vcaptcha')[0];
+    vcaptcha.appendChild(createLoading(vcaptcha));
+  }
+
+  function deloading(){
+    document.getElementById('formLoading').remove();
+  }

@@ -1,4 +1,5 @@
 
+
 function failDialog(message) {
     var url = new URL(window.location.href);
     if(url.searchParams.get("dev")!=1){vcaptcha.appendChild(createFailDialog(message, vcaptcha));}
@@ -19,10 +20,13 @@ function createFailDialog(message) {
     DialogButton.style.border = 'None';
     DialogButton.style.width = '100%';
     DialogButton.style.height = '50px';
+
+
   
   
     
     parent.appendChild(DialogButton);
+    
     
     
     return parent;
@@ -52,9 +56,39 @@ function createFailDialog(message) {
     DialogButton.style.border = 'None';
     DialogButton.style.width = '100%';
     DialogButton.style.height = '35px';
-  
-    
+
+
     parent.appendChild(DialogButton);
+    
+    return parent;
+  }
+
+  function createLoading() {
+    let parent = document.createElement('div'); //create parent div for content
+  
+    // !!!Setup Div Prop!!!
+    parent.id = 'formLoading';
+    parent.style.display = 'block';
+    parent.style.width = '200px';
+    parent.style.font = '12px Helvetica';
+    parent.style.border = '2px solid #d3d3d3';
+    parent.style.borderRadius = '3px';
+    parent.style.padding = '10px';
+    parent.style.margin = 'auto';
+    parent.style.marginBottom = '20px';
+  
+    // !!!Config block content for child prop!!!
+  
+    //question name
+    let loading = document.createElement('span');
+    loading.innerHTML = 'Loading...'; //question name
+    loading.style.textAlign = 'center';
+    loading.style.maxWidth = '100%';
+    loading.id = 'spanloading';
+    loading.style.color = '#1a73e8';
+
+    parent.appendChild(loading);
+    
     return parent;
   }
   
@@ -104,6 +138,9 @@ function createFailDialog(message) {
     bannerTimer.innerHTML = 'ทดสอบเวลา';
     bannerTimer.style.textAlign = 'center';
     bannerTimer.id = 'bannerTimer';
+
+    
+ 
     
     //micIcon
     let micIcon = document.createElement('img');
@@ -121,6 +158,7 @@ function createFailDialog(message) {
     parent.appendChild(textGuide);
     parent.appendChild(bannerTimer);
     parent.appendChild(micIcon);
+    
     
     return parent;
   }

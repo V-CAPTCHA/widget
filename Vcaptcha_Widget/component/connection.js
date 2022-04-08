@@ -1,4 +1,5 @@
 function getCaptcha_api() {
+  loading();
     fetch(
       widgetURL+'/GetCaptcha?domain=' +
         vcaptcha_ValueDomain +
@@ -41,7 +42,7 @@ function getCaptcha_api() {
           "Can't Connet to VCAPTCHA server. please check Your Key or Domain."
         );
       });
-   
+      
   }
   
   function checkCaptcha_api() {
