@@ -41,7 +41,7 @@ function countdown(minutes) {
     document.getElementById('bannerTimer').style.color = 'black';
     document.getElementById('txtRespone').style.color = 'black';
     document.getElementById('textGuide').style.color = 'black';
-  
+    activegif(1);
   }
   
   function stuckQuestion(text) {
@@ -53,6 +53,7 @@ function countdown(minutes) {
     vcaptcha_progress_status = 'Stuck';
     recognition.stop();
     recognition.abort();
+    activegif(0);
   }
   
   function passingQuestion() {
@@ -63,6 +64,7 @@ function countdown(minutes) {
     vcaptcha_progress_status = 'Passed';
     recognition.stop();
     recognition.abort();
+    activegif(0);
   }
   
   function loading(){

@@ -158,7 +158,7 @@ function createFailDialog(message) {
      micGif.style.marginLeft = '80px';
      micGif.style.opacity = '1';
      micGif.style.textAlign = 'center';
-     micGif.id = 'micIcon';
+     micGif.id = 'micGif';
   
     // !!!Setup Div Prop!!!
     parent.appendChild(question);

@@ -6,6 +6,15 @@ function mobileCheck() {
   return check;
 };
 
+function activegif(active){
+  if(mobileCheck()){
+  if(active){
+    document.getElementById("micGif").style.opacity = 1;
+  }else{
+    document.getElementById("micGif").style.opacity = 0;
+  }}
+}
+
 if (location.protocol !== 'https:') {
   failDialog("This Host is't HTTPS so VCAPTCHA will won't work !");
 }
