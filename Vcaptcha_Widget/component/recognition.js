@@ -23,6 +23,7 @@ recognition.onresult = function (event) {
     console.log('SpeechRecognition is Ended..');
     recognition.stop();
   };
+  
   recognition.onaudioend = function () {
     console.log('SpeechRecognition ended');
     setTimeout(function () {
