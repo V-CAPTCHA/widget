@@ -5,7 +5,7 @@ function waveform_display() {
     navigator.getUserMedia = navigator.getUserMedia ||
     navigator.webkitGetUserMedia ||
     navigator.mozGetUserMedia;
-    if (navigator.getUserMedia) {
+    if (navigator.getUserMedia && !mobileCheck()) {
       navigator.getUserMedia({
         audio: true },
       function (stream) {
@@ -43,3 +43,4 @@ function waveform_display() {
     }
    
   }
+
