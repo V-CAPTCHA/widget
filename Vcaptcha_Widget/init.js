@@ -6,6 +6,8 @@ function mobileCheck() {
   return check;
 };
 
+
+
 function activegif(active){
   if(mobileCheck()){
   if(active){
@@ -20,8 +22,18 @@ if (location.protocol !== 'https:') {
 }
 
 function init() {
+  
   vcaptcha = document.getElementsByTagName('vcaptcha')[0];
+  
+
+  var userAgent = window.navigator.userAgent;
+
+if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+  vcaptcha.appendChild(createFailDialog("VCAPTCHA doesn't support IOS devices !"));
+}
+else {
   vcaptcha.appendChild(createDialog(vcaptcha));
+}
 }
 
 
