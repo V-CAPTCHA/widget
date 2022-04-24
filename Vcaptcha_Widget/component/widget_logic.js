@@ -61,6 +61,7 @@ function countdown(minutes) {
     document.getElementById('bannerTimer').style.color = 'green';
     document.getElementById('txtRespone').style.color = 'green';
     document.getElementById('textGuide').style.color = 'green';
+    document.getElementById('textGuide').innerHTML = 'ยืนยันตัวตนเสร็จสิ้น';
     vcaptcha_progress_status = 'Passed';
     recognition.stop();
     recognition.abort();
