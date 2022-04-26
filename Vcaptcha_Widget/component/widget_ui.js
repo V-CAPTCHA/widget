@@ -110,7 +110,7 @@ function createFailDialog(message) {
     parent.style.marginBottom = '20px';
     parent.style.overflow = 'hidden';
     parent.style.backgroundColor = 'white';
-    parent.style.boxShadow = 'rgb(0 0 0 / 3%) 1px 1px 9px 0px';
+    parent.style.boxShadow = 'rgb(0 0 0 / 12%) 1px 1px 9px 0px';
     
     // !!!Config block content for child prop!!!
   
