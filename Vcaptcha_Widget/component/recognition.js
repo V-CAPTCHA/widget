@@ -35,5 +35,5 @@ recognition.onresult = function (event) {
         } catch (error) {
           console.log('Start recognition repeation Warning. ignored ');
         }
-    }, 500);
+    }, 3000);
   };

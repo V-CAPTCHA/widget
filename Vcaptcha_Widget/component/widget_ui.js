@@ -125,6 +125,7 @@ function createFailDialog(message) {
     let img = document.createElement('img');
     img.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
     img.style.maxWidth = '100%';
+    img.style.maxHeight = '230px';
     img.style.borderRadius = '10px';
     img.id = 'imgId';
   
