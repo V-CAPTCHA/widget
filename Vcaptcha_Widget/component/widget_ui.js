@@ -104,7 +104,7 @@ function createFailDialog(message) {
     parent.style.width = '250px';
     parent.style.font = '12px Helvetica';
     parent.style.border = '2px solid #d3d3d3';
-    parent.style.borderRadius = '35px';
+    parent.style.borderRadius = '15px';
     parent.style.padding = '10px';
     parent.style.margin = 'auto';
     parent.style.marginBottom = '20px';
